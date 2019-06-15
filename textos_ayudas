@@ -1,0 +1,370 @@
+//public $pdo2;
+//$pdo2 = new PDO("mysql:host=localhost;dbname=bd2","root","");
+//$_GLOBAL["conexion"]= $pdo2;
+
+/*$pdo = new PDO("mysql:host=localhost;dbname=bd2;charset=utf8","root","");
+$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+if ($pdo){
+	echo "conected";
+}else{
+	echo "no conected";	
+}*/
+
+				//$this->pdo = new PDO ("mysql:host=localhost;dbname=bd2","root","");
+				//$this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+				
+//require_once ("conexion/conexion.php");
+//require_once ("conexion/configdb.php");
+//$db = new Conexion();
+
+//print_r($db->pdo); 
+//$pdo = new PDO("mysql:host=localhost;dbname=bd2","root","");
+//$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+//print_r($pdo); exit;
+$cedula =$_POST['cedula'];
+$pass =$_POST['pass'];
+
+//$cedula ='4-752-2225';
+//$pass ='123456';
+
+//$sentencia = "SELECT count(*) FROM usuarios where cedula='$cedula' and pass='$pass'";
+//$resultado = $pdo->prepare($sentencia);
+//$resultado->execute();
+//$num = $resultado->fetchAll();
+//print_r($num);
+//while ($fila = $resultado->fetch(PDO::FETCH_NUM, PDO::FETCH_ORI_NEXT)) {
+  //    $datos = $fila[0];
+    //}
+//echo $datos;
+//$pdo=null;
+
+
+
+//--------------------navegador ---------
+
+/*$pdo = new PDO("mysql:host=localhost;dbname=bd2","root","");
+$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+
+$sentencia = "select t1.* from menus t1, menu_perfil_usuario t2, usu_usuario_perfil t3, usuarios t4 where t1.id_menu = t2.id_menus 
+and t2.id_usuario_perfil = t3.id_usuario_perfil
+and t3.cedula = t4.cedula;";
+
+$resultado = $pdo->prepare($sentencia);
+$resultado->execute();
+
+$html = "<!-- Nav Item - Pages Collapse Menu --><li class=\"nav-item\">";
+	  
+//while ($fila = $resultado->fetch(PDO::FETCH_NUM, PDO::FETCH_ORI_NEXT)) {
+$arr = $resultado->fetchAll(PDO::FETCH_ASSOC);
+foreach ($arr as $row) {
+	if (!empty($row["id_menu"])){
+		
+		$html.= $row["tag_menu"];
+		//echo $row["tag_menu"]; //exit;
+		//var_dump($row); exit;
+		$namecomponent= $row["nombre_menu"];
+		$tagger = $row["tagger"];
+		
+		$sentencia = "select t1.* from submenu t1, menu_perfil_usuario t2, usu_usuario_perfil t3, usuarios t4 where t1.id_menu = t2.id_menus 
+		and t2.id_usuario_perfil = t3.id_usuario_perfil
+		and t3.cedula = t4.cedula
+		and  t1.id_menu = ".$row["id_menu"]."; ";
+		
+		//echo $sentencia; exit;
+
+		$resultado = $pdo->prepare($sentencia);
+		$resultado->execute();
+
+		$html .= "<div id=\"$tagger\" class=\"collapse\" aria-labelledby=\"headingTwo\" data-parent=\"#accordionSidebar\">
+				  <div class=\"bg-white py-2 collapse-inner rounded\">
+					<h6 class=\"collapse-header\">".$namecomponent.":</h6>";
+					
+		while ($fila = $resultado->fetch(PDO::FETCH_NUM, PDO::FETCH_ORI_NEXT)) {
+			$html.= $fila[2];
+		}
+		$html.="</div></div></li>";
+	}
+	$html .= "<!-- Nav Item - Pages Collapse Menu --><li class=\"nav-item\">";
+}
+//echo $datos;
+$pdo=null;
+echo $html;*/
+
+
+
+<script type="text/javascript" language="javascript">
+        $(document).ready(function() {
+            var datatable = $('#dataTable').DataTable({
+                ajax: "/Form/conexion/data.php",
+                columns: [
+                    {data:"id"},
+                    {data:"country"},
+                    {data:"iso2"},
+                    {data:"iso3"},
+					{data:"noc"},
+                    {
+                        data: null,
+                        defaultContent: '<a href="#" class="btn btn-success btn-circle btn-sm"><i class="fas fa-edit"></i></a><a href="#" class="btn btn-success btn-circle btn-sm"><i class="far fa-eye"></i></a><a href="#" class="btn btn-danger btn-circle btn-sm"><i class="fas fa-trash"></i></a> '
+                    }
+                ]
+            });
+			
+			$('.openBtn').on('click',function(){
+				//$('.modal-body').load('/Form/form/form_country.php',function(){
+					//$('#myModal').modal({show:true});
+				//});
+				$('#myModal').modal({show:true});
+			});
+			
+			$('#btm_guardar').on('click',function(){
+				window.alert("Texto a mostrar");
+			});
+
+        });
+    </script>
+	
+	$("#dataTable").on('click','#view',function(){
+				 var currentRow=$(this).closest("tr"); 
+				 var col1=currentRow.find("td:eq(0)").text(); // get current row 1st TD value
+				 //var col2=currentRow.find("td:eq(1)").text(); // get current row 2nd TD
+				 //var col3=currentRow.find("td:eq(2)").text(); // get current row 3rd TD
+				 //var data=col1+"\n"+col2+"\n"+col3;
+				 
+				 //alert(data);
+				 //alert(col1);
+				 $('.modal2').load('clientes.php?m=view1&id='+col1,function(){
+					$('#myModal2').modal({show:true});
+				});
+				//$("#btm_update").css("visibility", "hidden");
+			});
+			
+country_js.js script
+<!--<script type="text/javascript" language="javascript">
+        $(document).ready(function() {
+			var ind;
+            var datatable = $('#dataTable').DataTable({
+                ajax: "principal.php?m=ajaxtabla",
+                columns: [
+                    {data:"id"},
+                    {data:"country"},
+                    {data:"iso2"},
+                    {data:"iso3"},
+					{data:"noc"},
+                    {
+                        data: null,
+                        defaultContent: '<a id="edit" class="btn btn-success btn-circle btn-sm" ><i class="fas fa-edit"></i></a><a id="view" class="btn btn-success btn-circle btn-sm"><i class="far fa-eye"></i></a><a id="del"  class="btn btn-danger btn-circle btn-sm"><i class="fas fa-trash"></i></a> '
+                    }
+                ],
+				dom: 'lBfrtip',
+				buttons: [
+					'copy', 'csv', 'excel', 'pdf', 'print'
+				]
+            });
+			$('.openBtn').on('click',function(){
+				$('#myModal').modal({show:true});
+			});
+			// PARA VISUALIZAR LOS DATOS
+			$("#dataTable").on('click','#view',function(){
+				 var currentRow=$(this).closest("tr"); 
+				 var col1=currentRow.find("td:eq(0)").text(); // get current row 1st TD value
+
+				 $('.modal2').load('clientes.php?m=view1&id='+col1,function(){
+					$('#myModal2').modal({show:true});
+				});
+
+			});
+			// Para ACTUALIZAR CAMPOS
+			$("#dataTable").on('click','#edit',function(){
+				 var currentRow=$(this).closest("tr"); 
+				 var col1=currentRow.find("td:eq(0)").text(); // get current row 1st TD value
+
+				$.get('clientes.php?m=edit1&id='+col1,function(data){
+					$("#InputCountrycss_u").attr("value",data['country']);
+					$("#InputISO2css_u").attr("value",data['iso2']);
+					$("#InputISO3css_u").attr("value",data['iso3']);
+					$("#InputNOCcss_u").attr("value",data['noc']);
+					ind= col1;
+					$('#myModal3').modal({show:true});
+				});
+				
+			});
+			// ELIMINAR CAMPOS
+			$("#dataTable").on('click','#del',function(){
+				 var currentRow=$(this).closest("tr"); 
+				 var col1=currentRow.find("td:eq(0)").text(); // get current row 1st TD value
+
+				 var seleccion = confirm("Desea Eliminar el Registro N°"+col1);
+				if (seleccion)
+				{
+					$.get('clientes.php?m=delete1&id='+col1,function(data){
+
+					})
+					.done(function(data) {
+						$.notify(data["msn"], {
+							newest_on_top: true,
+							type: 'success',
+							animate: {
+								enter: 'animated zoomInDown',
+								exit: 'animated zoomOutUp'
+							}
+						});
+						$('#dataTable').DataTable().ajax.reload();
+					})
+					.fail(function(jqXHR, textStatus, errorThrown) {
+						$.notify("Error Ocurrido++++ status: "+jqXHR+" errorThrown = "+errorThrown+" error "+ data["msn"], {
+							newest_on_top: true,
+							type: 'danger',
+							animate: {
+								enter: 'animated zoomInDown',
+								exit: 'animated zoomOutUp'
+							}
+						});
+					})
+					.always(function(data) {
+						$.notify("Eliminación Finalizada | "+data["msn"], {
+							newest_on_top: true,
+							type: 'success',
+							animate: {
+								enter: 'animated zoomInDown',
+								exit: 'animated zoomOutUp'
+							}
+						});
+					});
+				}
+				else
+				{
+					$.notify("NO Se Elimino el Registro N°"+col1, {
+							newest_on_top: true,
+							type: 'warning',
+							animate: {
+								enter: 'animated zoomInDown',
+								exit: 'animated zoomOutUp'
+							}
+					});
+				}
+			});
+			//======================================
+			//ACTUALIZAR
+			$("#btm_update").on('click',function(){
+				$.ajax({
+					  url:"clientes.php?m=update1",
+					  type: "POST",
+					  data: {
+						InputCountrycss: $("#InputCountrycss_u").val(),
+						InputISO2css: $("#InputISO2css_u").val(),
+						InputISO3css: $("#InputISO3css_u").val(),
+						InputNOCcss: $("#InputNOCcss_u").val(),
+						InputID: ind
+					  }
+				})
+				.done(function( data, xhr ) {
+					console.log(data["valor"]);
+					if (data["valor"] > 0){
+						$.notify(data["msn"], {
+							newest_on_top: true,
+							type: 'success',
+							animate: {
+								enter: 'animated zoomInDown',
+								exit: 'animated zoomOutUp'
+							}
+						});
+					}else{
+						$.notify("Ocurrio algo! verifique si inserto datos". msn , {
+							newest_on_top: true,
+							type: 'warning',
+							animate: {
+								enter: 'animated zoomInDown',
+								exit: 'animated zoomOutUp'
+							}
+						});
+					}
+					$('#dataTable').DataTable().ajax.reload();
+				})
+				.fail(function(jqXHR, textStatus, errorThrown) {
+					$.notify("Error Ocurrido++++ status: "+jqXHR+" errorThrown = "+errorThrown+" error "+ data["msn"], {
+							newest_on_top: true,
+							type: 'danger',
+							animate: {
+								enter: 'animated zoomInDown',
+								exit: 'animated zoomOutUp'
+							}
+						});
+				})
+				.always(function(data) {
+					$.notify("Actualización Finalizada "+data["msn"], {
+							newest_on_top: true,
+							type: 'success',
+							animate: {
+								enter: 'animated zoomInDown',
+								exit: 'animated zoomOutUp'
+							}
+						});
+					$("#myModal3").modal("hide");
+
+				});
+				//fin de ajax
+			});
+			//======================================
+			$('#btm_guardar').on('click',function(){
+				$.ajax({
+					  url:"clientes.php?m=insert",
+					  type: "POST",
+					  data: {
+						InputCountrycss: $("#InputCountrycss").val(),
+						InputISO2css: $("#InputISO2css").val(),
+						InputISO3css: $("#InputISO3css").val(),
+						InputNOCcss: $("#InputNOCcss").val()
+					  }
+				})
+				.done(function( data, xhr ) {
+					console.log(data["valor"]);
+					if (data["valor"] > 0){
+						$.notify(data["msn"], {
+							newest_on_top: true,
+							type: 'success',
+							animate: {
+								enter: 'animated zoomInDown',
+								exit: 'animated zoomOutUp'
+							}
+						});
+					}else{
+						$.notify("Ocurrio algo! verifique si inserto datos". msn , {
+							newest_on_top: true,
+							type: 'warning',
+							animate: {
+								enter: 'animated zoomInDown',
+								exit: 'animated zoomOutUp'
+							}
+						});
+					}
+					$('#dataTable').DataTable().ajax.reload();
+				})
+				.fail(function(jqXHR, textStatus, errorThrown) {
+					$.notify("Error Ocurrido++++ status: "+jqXHR+" errorThrown = "+errorThrown+" error "+ data["msn"], {
+							newest_on_top: true,
+							type: 'danger',
+							animate: {
+								enter: 'animated zoomInDown',
+								exit: 'animated zoomOutUp'
+							}
+						});
+				})
+				.always(function(data) {
+					$.notify("Inserción Finalizada "+data["msn"], {
+							newest_on_top: true,
+							type: 'success',
+							animate: {
+								enter: 'animated zoomInDown',
+								exit: 'animated zoomOutUp'
+							}
+						});
+					$("#myModal").modal("hide");
+				});
+				//fin de ajax
+			});
+        });
+    </script>-->
+	
+	background-image:-webkit-gradient(linear,left top,left bottom,color-stop(10%,#4e73df),to(#224abe));background-image:linear-gradient(180deg,#4e73df 10%,#224abe 100%);
